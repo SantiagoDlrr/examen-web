@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -25,7 +26,15 @@ export default function Register() {
       }
 
       const data = await res.json();
-      router.push(`/welcome?name=${encodeURIComponent(data.fullName)}`);
+
+      // Guardar en localStorage
+      localStorage.setItem('visitor', JSON.stringify({
+        name: data.fullName,
+        ticketNumber: data.ticketNumber,
+      }));
+
+      // Redirigir simple, sin parámetros
+      router.push('/welcome');
     } catch (err: any) {
       setError(err.message);
     }

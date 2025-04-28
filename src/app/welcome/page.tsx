@@ -1,19 +1,28 @@
 'use client';
 
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from 'react';
 
 export default function Welcome() {
-  const searchParams = useSearchParams();
-  const name = searchParams.get('name');
+  const [visitor, setVisitor] = useState<{ name: string; ticketNumber: string } | null>(null);
+
+  useEffect(() => {
+    const storedVisitor = localStorage.getItem('visitor');
+    if (storedVisitor) {
+      setVisitor(JSON.parse(storedVisitor));
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-100">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-lg text-center">
-        {name ? (
+        {visitor ? (
           <>
             <h1 className="text-3xl font-bold text-green-700 mb-4">
-              ¡Bienvenid@, {name}!
+              ¡Bienvenido, {visitor.name}!
             </h1>
+            <p className="text-green-600 text-lg mb-2">
+              Número de Boleto: <span className="font-bold">{visitor.ticketNumber}</span>
+            </p>
             <p className="text-green-600 text-lg">
               Disfruta tu experiencia en GreenPark 🌿
             </p>
