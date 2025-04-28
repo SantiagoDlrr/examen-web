@@ -1,8 +1,10 @@
-import { useRouter } from "next/router";
+'use client';
+
+import { useSearchParams } from "next/navigation";
 
 export default function Welcome() {
-  const router = useRouter();
-  const { name } = router.query;
+  const searchParams = useSearchParams();
+  const name = searchParams.get('name');
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-100">
@@ -10,7 +12,7 @@ export default function Welcome() {
         {name ? (
           <>
             <h1 className="text-3xl font-bold text-green-700 mb-4">
-              ¡Bienvenido, {name}!
+              ¡Bienvenid@, {name}!
             </h1>
             <p className="text-green-600 text-lg">
               Disfruta tu experiencia en GreenPark 🌿
